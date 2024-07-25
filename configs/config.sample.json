@@ -1,0 +1,13 @@
+{
+  "telegramToken": "",
+  "database":"db.sqlite",
+
+  "credentialsParcelPassword": "",
+  "creditCardParcelPassword": "",
+
+  "webhook": {
+    "port": "",
+    "publicUrl": "",
+    "certificate": ""
+  }
+}
