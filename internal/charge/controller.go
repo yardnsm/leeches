@@ -101,10 +101,7 @@ func (ctrl *Controller) addChargeMessage(participant model.User, editable tele.E
 
 // Fetch the data from Hever's API and return struct ready for render
 func (ctrl *Controller) fetch() (*gohever.CardStatus, *gohever.CardEstimate, error) {
-	card := ctrl.c.Hever.Cards.Keva
-	if ctrl.request.CardType == gohever.TypeTeamim {
-		card = ctrl.c.Hever.Cards.Teamim
-	}
+	card := ctrl.c.GetCardByType(ctrl.request.CardType)
 
 	status, err := card.GetStatus()
 	if err != nil {

@@ -5,7 +5,7 @@ go 1.19
 require github.com/stretchr/testify v1.8.2
 
 require (
-	github.com/yardnsm/gohever v0.0.0-20230514204424-409255981226
+	github.com/yardnsm/gohever v0.0.0-20241113170505-af8d59354406
 	golang.org/x/crypto v0.6.0
 	golang.org/x/term v0.5.0
 	gopkg.in/telebot.v3 v3.1.2

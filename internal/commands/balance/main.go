@@ -11,8 +11,7 @@ import (
 	tele "gopkg.in/telebot.v3"
 )
 
-
-func handleCardBalance(c bot.Context, t tele.Context, card gohever.CardInterface) error {
+func handleCardBalance(c bot.Context, _ tele.Context, card gohever.CardInterface) error {
 	editable, _ := c.SendEditable("⏳ I'm on it...")
 
 	status, err := card.GetStatus()
@@ -34,6 +33,10 @@ func handleCardBalance(c bot.Context, t tele.Context, card gohever.CardInterface
 
 	if card.Type() == gohever.TypeTeamim {
 		usageFmt[0] = "🌮 *Teamim monthly usage (%d%%):*"
+	}
+
+	if card.Type() == gohever.TypeSheli {
+		usageFmt[0] = "🩲 *Sheli monthly usage (%d%%):*"
 	}
 
 	usageViz := render.CardBalance(*status)
@@ -63,7 +66,21 @@ var balanceFoodCommand = bot.NewCommand(balanceFoodEndpoint).
 		return handleCardBalance(c, t, c.Hever.Cards.Teamim)
 	})
 
-func Attach(router *bot.Router) {
-	router.AddCommand(balanceKevaCommand)
-	router.AddCommand(balanceFoodCommand)
+var balanceSheliCommand = bot.NewCommand(balanceSheliEndpoint).
+	Description("View Sheli card balance").
+	RestrictUser(bot.RestrictApproved).
+	Handle(func(c bot.Context, t tele.Context) error {
+		return handleCardBalance(c, t, c.Hever.Cards.Sheli)
+	})
+
+var cardTypeToCommand = map[gohever.CardType]*bot.Command{
+	gohever.TypeKeva:   balanceKevaCommand,
+	gohever.TypeTeamim: balanceFoodCommand,
+	gohever.TypeSheli:  balanceSheliCommand,
+}
+
+func Attach(router *bot.Router, cards []gohever.CardType) {
+	for _, cardType := range cards {
+		router.AddCommand(cardTypeToCommand[cardType])
+	}
 }

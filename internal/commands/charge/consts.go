@@ -2,12 +2,12 @@ package charge
 
 import (
 	"errors"
-	"time"
 )
 
 const (
 	chargeKevaEndpoint = "/chargekeva"
 	chargeFoodEndpoint = "/chargefood"
+	chargeSheliEndpoint = "/chargesheli"
 
 	chargeCardGetAmountEndpoint = "/chargecard/getamount"
 	chargeCardGetReasonEndpoint = "/chargecard/getreason"

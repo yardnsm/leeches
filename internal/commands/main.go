@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"github.com/yardnsm/gohever"
 	"github.com/yardnsm/leeches/internal/bot"
 
 	"github.com/yardnsm/leeches/internal/commands/admin"
@@ -9,9 +10,10 @@ import (
 	"github.com/yardnsm/leeches/internal/commands/users"
 )
 
-func Attach(router *bot.Router) {
+func Attach(router *bot.Router, cards []gohever.CardType) {
 	admin.Attach(router)
 	users.Attach(router)
-	balance.Attach(router)
-	charge.Attach(router)
+
+	balance.Attach(router, cards)
+	charge.Attach(router, cards)
 }

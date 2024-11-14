@@ -24,7 +24,7 @@ func createController(c *bot.Context, request *model.ChargeRequest) *charge.Cont
 		request,
 		charge.CallbackEndpoints{
 			Refresh: chargeCardRefreshEndpoint,
-			Reject: chargeCardRejectEndpoint,
+			Reject:  chargeCardRejectEndpoint,
 			Approve: chargeCardApproveEndpoint,
 		},
 	)
@@ -84,6 +84,13 @@ var chargeFoodCommand = bot.NewCommand(chargeFoodEndpoint).
 		return handleChargeCardStart(c, t, gohever.TypeTeamim)
 	})
 
+var chargeSheliCommand = bot.NewCommand(chargeSheliEndpoint).
+	Description("Charge the Sheli card").
+	RestrictUser(bot.RestrictApproved).
+	Handle(func(c bot.Context, t tele.Context) error {
+		return handleChargeCardStart(c, t, gohever.TypeSheli)
+	})
+
 var chargeCardGetAmount = bot.NewCommand(chargeCardGetAmountEndpoint).
 	RestrictUser(bot.RestrictApproved).
 	Handle(bot.CreateStatefulHandler(
@@ -128,9 +135,16 @@ var chargeCardApproveCallback = bot.NewCommand(chargeCardApproveEndpoint).
 		return handleApproveCalback(c, t)
 	})
 
-func Attach(router *bot.Router) {
-	router.AddCommand(chargeKevaCommand)
-	router.AddCommand(chargeFoodCommand)
+var cardTypeToCommand = map[gohever.CardType]*bot.Command{
+	gohever.TypeKeva:   chargeKevaCommand,
+	gohever.TypeTeamim: chargeFoodCommand,
+	gohever.TypeSheli:  chargeSheliCommand,
+}
+
+func Attach(router *bot.Router, cards []gohever.CardType) {
+	for _, cardType := range cards {
+		router.AddCommand(cardTypeToCommand[cardType])
+	}
 
 	router.AddCallback(chargeCardRefreshCallback)
 	router.AddCallback(chargeCardRejectCallback)

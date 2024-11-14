@@ -96,6 +96,12 @@ func main() {
 		CreditCard:  gohever.BasicCreditCard(creditCard.Number, creditCard.Month, creditCard.Year),
 	}
 
+	// Select flavor
+	siteFlavor := gohever.FlavorHvr
+	if cfg.Flavor == "mcc" {
+		siteFlavor = gohever.FlavorMcc
+	}
+
 	b, err := tele.NewBot(botSettings)
 	if err != nil {
 		log.Fatal(err)
@@ -106,7 +112,7 @@ func main() {
 	usersRepository := model.NewUsersRepository(db)
 	chargeRequestsRepository := model.NewChargeRequestsRepository(db)
 
-	hvr := gohever.NewClient(hvrClientConfig)
+	hvr := gohever.NewClient(siteFlavor, hvrClientConfig)
 
 	// Setup global middlewares
 	b.Use(bot.AllowOnlyPrivateChatsMiddleware())
@@ -155,7 +161,10 @@ func main() {
 			}),
 	)
 
-	commands.Attach(router)
+	// Gather cards
+	cards := gatherCards(hvr)
+
+	commands.Attach(router, cards)
 	router.Attach(b)
 
 	// Delete the webhook if not used
@@ -164,4 +173,20 @@ func main() {
 	}
 
 	b.Start()
+}
+
+func gatherCards(hvr *gohever.Client) (cards []gohever.CardType) {
+	if hvr.Cards.Keva != nil {
+		cards = append(cards, gohever.TypeKeva)
+	}
+
+	if hvr.Cards.Teamim != nil {
+		cards = append(cards, gohever.TypeTeamim)
+	}
+
+	if hvr.Cards.Sheli != nil {
+		cards = append(cards, gohever.TypeSheli)
+	}
+
+	return
 }

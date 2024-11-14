@@ -18,6 +18,8 @@ type LeechesConfig struct {
 	TelegramToken string `json:"telegramToken"`
 	Database      string `json:"database"`
 
+	Flavor string `json:"flavor"`
+
 	CredentialsParcelPassword string `json:"credentialsParcelPassword"`
 	CreditCardParcelPassword  string `json:"creditCardParcelPassword"`
 

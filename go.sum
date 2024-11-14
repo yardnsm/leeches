@@ -388,6 +388,8 @@ github.com/subosito/gotenv v1.4.1/go.mod h1:ayKnFf/c6rvx/2iiLrJUk1e6plDbT3edrFNG
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/yardnsm/gohever v0.0.0-20230514204424-409255981226 h1:Ui5+mkygEYhcrvRXG05ypxFWVQmTPkORqIDvuQsYuw0=
 github.com/yardnsm/gohever v0.0.0-20230514204424-409255981226/go.mod h1:rdxwolOV29KPlR9JmqnN2yutH0GsctxDKo9uDQ77OXM=
+github.com/yardnsm/gohever v0.0.0-20241113170505-af8d59354406 h1:wWkGF0ygpeaQ7B0atB6f63OqXhDGuwy/hsKFO3NwkeQ=
+github.com/yardnsm/gohever v0.0.0-20241113170505-af8d59354406/go.mod h1:rdxwolOV29KPlR9JmqnN2yutH0GsctxDKo9uDQ77OXM=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

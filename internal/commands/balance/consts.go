@@ -1,6 +1,7 @@
 package balance
 
 const (
-	balanceKevaEndpoint = "/balancekeva"
-	balanceFoodEndpoint = "/balancefood"
+	balanceKevaEndpoint  = "/balancekeva"
+	balanceFoodEndpoint  = "/balancefood"
+	balanceSheliEndpoint = "/balancesheli"
 )

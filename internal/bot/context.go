@@ -44,6 +44,20 @@ func (c *Context) Bot() *tele.Bot {
 	return c.tc.Bot()
 }
 
+// Utility method for returning the card based on the
+func (c *Context) GetCardByType(cardType gohever.CardType) gohever.CardInterface {
+	switch cardType {
+	case gohever.TypeKeva:
+		return c.Hever.Cards.Keva
+	case gohever.TypeTeamim:
+		return c.Hever.Cards.Teamim
+	case gohever.TypeSheli:
+		return c.Hever.Cards.Sheli
+	default:
+		return nil
+	}
+}
+
 // Get the state of the current text command set for the current chat. The text command mechanism
 // is bound to a specific chat, by it's ID
 func (c *Context) GetTextCommand() TextCommandForChat {

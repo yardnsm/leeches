@@ -164,13 +164,9 @@ func handleApproveCalback(c bot.Context, t tele.Context) error {
 			return t.Respond(&tele.CallbackResponse{Text: "The estimation has changed - please approve again."})
 		}
 
-		card := c.Hever.Cards.Keva
-		if request.CardType == gohever.TypeTeamim {
-			card = c.Hever.Cards.Teamim
-		}
+		card := c.GetCardByType(request.CardType)
 
 		// Perform the charge!
-		// NOTE me so inconsistent. one time is charge. two time is load. ha ha lol.
 		result, err := card.Load(request.CachedCardStatus, request.Amount)
 		if err != nil {
 			request.State = model.StateFailed
